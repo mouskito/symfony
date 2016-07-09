@@ -16,3 +16,6 @@
 /web/bundles/
 
 /composer.lock
+/bower_components/
+/node_modules/
+/web/dist/
