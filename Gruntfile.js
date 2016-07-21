@@ -34,13 +34,13 @@ module.exports = function (grunt) {
         files: [
           '<%= config.app %>/scripts/{,*/}*.js'
         ],
-        tasks: ['jshint']
+        tasks: ['jshint', 'dist']
       },
       sass: {
         files: [
           '<%= config.app %>/scss/**/*.scss',
         ],
-        tasks: ['styles']
+        tasks: ['styles', 'dist']
       }
     },
 
@@ -53,15 +53,6 @@ module.exports = function (grunt) {
             '.tmp',
             '<%= config.dist %>/*',
             '!<%= config.dist %>/.git*'
-          ]
-        }]
-      },
-      dev: {
-        files: [{
-          dot: true,
-          src: [
-            '<%= config.app %>/scripts/vendor',
-            '<%= config.app %>/styles/vendor'
           ]
         }]
       },
@@ -158,37 +149,6 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      distIndex:{
-        // Copy index to apache docroot & edit urls to match distribution.
-        src: '<%= config.app %>/index.html',
-        dest: '<%= config.dist %>/index.html',
-        options: {
-          process: function (content, srcpath) {
-            // Replace uncompiled files by compiled JS.
-            content = content.replace('<script type="text/javascript" src="scripts/main.js"></script>',
-              '<script type="text/javascript" src="scripts/main.min.js"></script>');
-            return content;
-          }
-        },
-      },
-      index:{
-        // Copy index to apache docroot & edit urls to match distribution.
-        src: '<%= config.dist %>/index.html',
-        dest: './index.html',
-        options: {
-          process: function (content, srcpath) {
-            // Edit all src/href arguments to match new relatives urls. 
-            // Load XRegExp to fix poor JavaScript native RegExp. 
-            var XRegExp = require('xregexp').XRegExp; 
-            var attributs = XRegExp('(?<attr>href|src)[ ]*=[ ]*(?<quo>[\'|"])(?!http:|https:|\/\/|mailto:|ftp:|ftps:|sftp:)', 'gi');
-            content = XRegExp.replace(content, attributs,"${attr}=${quo}" + config.dist + "/");
-            // Replace script init.
-            content = content.replace('baseUrl:\'/\'',
-              'baseUrl:\'/dist/\'');
-            return content;
-          }
-        }
-      },
       bower: {
         // Copy bower elements.
         files: [{
@@ -206,26 +166,18 @@ module.exports = function (grunt) {
         },{
           expand: true,
           dot: true,
+          cwd: '<%= config.bower %>/angular/',
+          dest: '<%= config.dist %>/scripts/vendor/angular',
+          src: ['angular.min.js']
+        },{
+          expand: true,
+          dot: true,
           cwd: '<%= config.bower %>/ks-normalize/dist/css/',
           dest: '<%= config.app %>/styles/vendor',
           src: ['ks-normalize.min.css']
         }
         ]
       }
-    },
-    concat: {
-      options: {
-        separator: '\n',
-        stripBanners: true,
-        banner: '/*! <%= config.pkg.name %> - v<%= config.pkg.version %> - ' +
-          '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
-      },
-      dist: {
-        src: [
-          '<%= config.dist %>/scripts/main.js',
-        ],
-        dest: '<%= config.dist %>/scripts/main.min.js',
-      },
     }
   });
 
@@ -245,30 +197,15 @@ module.exports = function (grunt) {
   grunt.lazyLoadNpmTasks('grunt-contrib-concat', 'concat');
 
   // Register tasks.
-  grunt.registerTask('styles', [
-    'compass',
-    'autoprefixer'
-  ]);
   grunt.registerTask('dist', [
-    'clean:dist',
-    'clean:server',
+    'clean',
+    'copy:bower',
     'compass',
     'autoprefixer',
     'cssmin',
-    'uglify:dist',
-    'concat',
-    'copy:dist',
-    'clean:js',
-    'copy:distIndex',
-    'copy:index'
-  ]);
-  grunt.registerTask('serve', [
-    'dist',
+    'uglify',
   ]);
   grunt.registerTask('default', [
-    'clean:dev',
-    'copy:bower',
-    'styles',
     'dist'
   ]);
 };
