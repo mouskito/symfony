@@ -1,0 +1,14 @@
+{
+  "name": "symfony3",
+  "homepage": "https://github.com/iknsa-formation/symfony3",
+  "authors": [
+    "Khalid Sookia <khalidsookia@gmail.com>"
+  ],
+  "description": "A symfony3 course",
+  "main": "",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.7"
+  }
+}
