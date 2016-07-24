@@ -2,6 +2,9 @@
 
 This course is based for PHP5 Objected Oriented developers.
 
+### Drive PPT
+The link to the drive is [https://drive.google.com/open?id=0B9HVbv29cDuvbXNwWXlEZzV5dE0](https://drive.google.com/open?id=0B9HVbv29cDuvbXNwWXlEZzV5dE0)
+
 ## Installation:
 
 Start by installing git and set up your ssh connection. 
