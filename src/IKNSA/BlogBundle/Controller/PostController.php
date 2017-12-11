@@ -20,8 +20,8 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $posts = $em->getRepository('IKNSABlogBundle:Post')->findAll();
-
+        //$posts = $em->getRepository('IKNSABlogBundle:Post')->findAll();
+        $posts = $em->getRepository('IKNSABlogBundle:Post')->getLastInserted('IKNSABlogBundle:Post', 3);
         return $this->render('post/index.html.twig', array(
             'posts' => $posts,
         ));
@@ -35,7 +35,6 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $posts = $em->getRepository('IKNSABlogBundle:Post')->findAll();
-
         return $this->json([
             "posts" => $posts
         ]);

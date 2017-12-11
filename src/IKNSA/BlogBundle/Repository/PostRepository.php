@@ -10,4 +10,13 @@ namespace IKNSA\BlogBundle\Repository;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getLastInserted($entity, $amount)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                "SELECT e FROM $entity e ORDER BY e.id DESC"
+            )
+            ->setMaxResults($amount)
+            ->getResult();
+    }
 }
