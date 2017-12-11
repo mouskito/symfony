@@ -24,40 +24,40 @@ class Post
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
      */
-    private $title;
+    public $title;
 
     /**
      * @var string
      *
      * @ORM\Column(name="summary", type="string", length=255)
      */
-    private $summary;
+    public $summary;
 
     /**
      * @var string
      *
      * @ORM\Column(name="content", type="string", length=255)
      */
-    private $content;
+    public $content;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    public $createdAt;
 
     /**
      * Just a property which is not a doctrine mapped property
      */
-    private $temp;
+    public $temp;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -67,8 +67,7 @@ class Post
     /**
      * @Assert\File(maxSize="6000000")
      */
-    private $file;
-
+    public $file;
 
     /**
      * @ORM\ManyToOne(targetEntity="IKNSA\BlogBundle\Entity\User")

@@ -3,6 +3,11 @@ post_index:
     defaults: { _controller: "IKNSABlogBundle:Post:index" }
     methods:  GET
 
+post_restfulList:
+    path:     /restfulList
+    defaults: { _controller: "IKNSABlogBundle:Post:restfulList" }
+    methods:  GET
+
 post_show:
     path:     /{id}/show
     defaults: { _controller: "IKNSABlogBundle:Post:show" }
