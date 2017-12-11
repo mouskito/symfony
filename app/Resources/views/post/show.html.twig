@@ -21,10 +21,7 @@
                 <th>Content</th>
                 <td>{{ post.content }}</td>
             </tr>
-            <tr>
-                <th>Author</th>
-                <td>{{ post.author }}</td>
-            </tr>
+
             <tr>
                 <th>Createdat</th>
                 <td>{% if post.createdAt %}{{ post.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>

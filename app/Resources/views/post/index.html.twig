@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    
+
     <h1>Posts list</h1>
 
     <table>
@@ -24,9 +24,23 @@
                 <td>{{ post.title }}</td>
                 <td>{{ post.summary }}</td>
                 <td>{{ post.content }}</td>
-                <td>{{ post.author }}</td>
+                
+                <td>
+                    {% if post.user %}
+                        {{ post.user.username }}
+                    {% else %}
+                        <i>Annonymous</i>
+                    {% endif %}
+                </td>
+
                 <td>{% if post.createdAt %}{{ post.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ post.image }}</td>
+                 <td>
+                    {% if post.getImage %}
+                        <img src="{{ asset('uploads/pictures/' ~ post.getImage) }}" style="width:75px;max-height:75px;">
+                    {% else %}
+                        <i>null</i>
+                    {% endif %}
+                </td>
                 <td>
                     <ul>
                         <li>
