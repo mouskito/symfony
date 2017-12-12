@@ -46,4 +46,24 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+
+    <h1>Les comments</h1>
+    <section>
+        <ul>
+            {% dump(comments) %}
+            {% for comment in comments %}
+                <li>
+                    {{ comment.comment }} {% if comment.user %}bye <strong>{{ comment.user.username }}</strong>{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <h1>Comment creation</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
 {% endblock %}

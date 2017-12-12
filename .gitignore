@@ -22,3 +22,5 @@
 /web/app/styles/
 /web/uploads/
 .sass-cache/
+.idea/
+*.php~

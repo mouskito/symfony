@@ -11,7 +11,7 @@ post_restfulList:
 post_show:
     path:     /{id}/show
     defaults: { _controller: "IKNSABlogBundle:Post:show" }
-    methods:  GET
+    methods:  [GET, POST]
 
 post_new:
     path:     /new

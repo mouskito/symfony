@@ -40,6 +40,11 @@ class Comment
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="IKNSA\BlogBundle\Entity\Post", inversedBy="comments")
+     */
+    private $post;
+
     public function __construct()
     {
         $this->createdAt = new \Datetime;
@@ -125,5 +130,29 @@ class Comment
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set post
+     *
+     * @param \IKNSA\BlogBundle\Entity\Post $post
+     *
+     * @return Comment
+     */
+    public function setPost(\IKNSA\BlogBundle\Entity\Post $post = null)
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * Get post
+     *
+     * @return \IKNSA\BlogBundle\Entity\Post
+     */
+    public function getPost()
+    {
+        return $this->post;
     }
 }

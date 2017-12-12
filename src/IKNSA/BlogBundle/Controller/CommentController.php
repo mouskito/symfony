@@ -42,7 +42,8 @@ class CommentController extends Controller
             $em->persist($comment);
             $em->flush();
 
-            return $this->redirectToRoute('comment_show', array('id' => $comment->getId()));
+            //return $this->redirectToRoute('comment_show', array('id' => $comment->getId()));
+            return $this->redirect($request->headers->get('referer'));
         }
 
         return $this->render('comment/new.html.twig', array(

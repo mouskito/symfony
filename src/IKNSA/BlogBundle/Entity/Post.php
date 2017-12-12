@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -74,9 +75,15 @@ class Post
      */
     protected $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity="IKNSA\BlogBundle\Entity\Comment", mappedBy="post")
+     */
+    protected $comments;
+
     public function __construct()
     {
         $this->createdAt = new \Datetime;
+        $this->comments = new ArrayCollection();
     }
 
 
@@ -334,5 +341,39 @@ class Post
     public function getImage()
     {
         return $this->id . '.' . $this->extension;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \IKNSA\BlogBundle\Entity\Comment $comment
+     *
+     * @return Post
+     */
+    public function addComment(\IKNSA\BlogBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \IKNSA\BlogBundle\Entity\Comment $comment
+     */
+    public function removeComment(\IKNSA\BlogBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
