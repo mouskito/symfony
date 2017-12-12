@@ -53,7 +53,7 @@
             {% dump(comments) %}
             {% for comment in comments %}
                 <li>
-                    {{ comment.comment }} {% if comment.user %}bye <strong>{{ comment.user.username }}</strong>{% endif %}
+                    {{ comment.comment }} {% if comment.user %}by <em>{{ comment.user.username }}</em>{% endif %}
                 </li>
             {% endfor %}
         </ul>

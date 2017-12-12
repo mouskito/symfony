@@ -31,6 +31,20 @@ class PostController extends Controller
     }
 
     /**
+     * Lists all post entities in JSON.
+     *
+     */
+    public function restfulListAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('IKNSABlogBundle:Post')->findAll();
+
+        return $this->json([
+            "posts" => $posts
+        ]);
+    }
+
+    /**
      * Creates a new Post entity.
      *
      */
